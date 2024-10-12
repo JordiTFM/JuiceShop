@@ -41,10 +41,15 @@ jobs:
           #jn #jn publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
           #jn generateSarif: "1"
           
+      #jn inicio añadido 
+      - name: Install Semgrep
+        run: pip install semgrep
+        
       - name: Run Semgrep scan
         run: semgrep scan --sarif --output=semgrep.sarif --config=auto
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      #jn fin añadido  
 
       # Upload SARIF file generated in previous step
       - name: Upload SARIF file
