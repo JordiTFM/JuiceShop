@@ -57,3 +57,6 @@ jobs:
         with:
           sarif_file: semgrep.sarif
         if: always()
+      #jn Verificar si se ha grabado el archivo SARIF
+      - name: List SARIF files
+        run: ls -l semgrep.sarif
