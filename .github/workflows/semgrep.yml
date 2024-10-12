@@ -40,6 +40,7 @@ jobs:
           publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
           #jn publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
           generateSarif: "1"
+          config: "policy" #jn para evitar el problema de deprecación
 
       # Upload SARIF file generated in previous step
       - name: Upload SARIF file
