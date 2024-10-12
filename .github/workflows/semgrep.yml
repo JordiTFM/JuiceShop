@@ -35,12 +35,16 @@ jobs:
       - uses: actions/checkout@v4
 
       # Scan code using project's configuration on https://semgrep.dev/manage
-      - uses: returntocorp/semgrep-action@fcd5ab7459e8d91cb1777481980d1b18b4fc6735
-        with:
-          publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
-          #jn publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
-          generateSarif: "1"
-          config: "policy" #jn para evitar el problema de deprecación
+      #jn - uses: returntocorp/semgrep-action@fcd5ab7459e8d91cb1777481980d1b18b4fc6735
+        #jn with:
+          #jn publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
+          #jn #jn publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
+          #jn generateSarif: "1"
+          
+      - name: Run Semgrep scan
+        run: semgrep scan --sarif --output=semgrep.sarif --config=auto
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
       # Upload SARIF file generated in previous step
       - name: Upload SARIF file
