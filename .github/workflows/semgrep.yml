@@ -17,7 +17,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ "master" ]
   schedule:
-    - cron: '21 11 * * 4'
+    - cron: '21 11 * * 4' #jn ejecución cada jueves a las 11:21 (UTC)
 
 permissions:
   contents: read
@@ -29,30 +29,22 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     name: Scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest   #jn s.o. de la VM que GitHub Actions asignará en Azure
     steps:
       # Checkout project source
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4   #jn clona el código en la VM temporal
 
-      # Scan code using project's configuration on https://semgrep.dev/manage
-      #jn - uses: returntocorp/semgrep-action@fcd5ab7459e8d91cb1777481980d1b18b4fc6735
-        #jn with:
-          #jn publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
-          #jn #jn publishDeployment: ${{ secrets.SEMGREP_DEPLOYMENT_ID }}
-          #jn generateSarif: "1"
-          
-      #jn inicio añadido 
-      - name: Install Semgrep
-        run: pip install semgrep
+      - name: Instalar Semgrep con pip en la VM #jn (gestor de paquetes para Python)
+        run: pip install semgrep            #jn añadido
         
-      - name: Run Semgrep scan
-        run: semgrep scan --sarif --output=semgrep.sarif --config=auto
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      # Scan code using project's configuration on https://semgrep.dev/manage
+      - name: Run Semgrep scan              #jn añadido
+        run: semgrep scan --sarif --output=semgrep.sarif --config=auto  #jn añadido
+        env: SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}   #jn añadido
+
       #jn Verificar si se ha grabado el archivo SARIF
-      - name: Listar los archivos SARIF
-        run: ls -l semgrep.sarif
-      #jn fin añadido  
+      - name: Listar los archivos SARIF     #jn añadido
+        run: ls -l semgrep.sarif            #jn añadido
 
       # Upload SARIF file generated in previous step
       - name: Upload SARIF file
@@ -60,7 +52,3 @@ jobs:
         with:
           sarif_file: semgrep.sarif
         if: always()
-
-        #jn Confirmar la subida del SARIF
-      - name: Confirmar el SARIF upload
-        run: echo "SARIF upload completed"
