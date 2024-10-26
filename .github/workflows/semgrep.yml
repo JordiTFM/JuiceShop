@@ -39,7 +39,9 @@ jobs:
         
       # Scan code using project's configuration on https://semgrep.dev/manage
       - name: Run Semgrep scan              #jn añadido
-        run: semgrep scan --sarif --output=semgrep.sarif --config=auto  #jn añadido
+        run: |
+            semgrep scan --sarif --output=semgrep.sarif --config=auto \
+            --include=**/*.lock --include=**/package-lock.json #jn necesario para SCA
         env:
             SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}   #jn añadido
 
