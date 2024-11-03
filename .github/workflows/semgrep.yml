@@ -17,7 +17,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ "master" ]
   schedule:
-    - cron: '21 11 * * 4' #jn ejecución cada jueves a las 11:21 (UTC)
+    #jn - cron: '21 11 * * 4' #jn ejecución cada jueves a las 11:21 (UTC)
 
 permissions:
   contents: read
@@ -39,11 +39,10 @@ jobs:
         
       # Scan code using project's configuration on https://semgrep.dev/manage
       - name: Run Semgrep scan              
-        run: #jn|
-            semgrep scan --sarif --output=semgrep.sarif --config=auto #jn\
-            #jn --include=**/*.lock --include=**/package-lock.json #jn necesario para SCA
-        env:
-            SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}   #jn añadido
+        run:
+            semgrep scan --sarif --output=semgrep.sarif --config=auto
+          env:
+            SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}   #jn token de semgrep
 
       #jn Verificar si se ha grabado el archivo SARIF
       - name: Listar los archivos SARIF     
