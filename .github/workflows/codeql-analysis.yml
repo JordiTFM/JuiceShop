@@ -44,6 +44,7 @@ jobs:
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: jn_codeql.sarif
+        category: "sarif jordi"
       if: always()
         
       #jn Guarda el archivo SARIF como un artefacto para poder descargarlo del sistema de archivos de GitHub
