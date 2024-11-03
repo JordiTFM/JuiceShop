@@ -55,3 +55,10 @@ jobs:
         with:
           sarif_file: semgrep.sarif
         if: always()
+        
+      #jn Guarda el archivo SARIF como un artefacto para poder descargarlo del sistema de archivos de GitHub
+      - name: Carga el SARIF artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: semgrep-sarif
+          path: semgrep.sarif
