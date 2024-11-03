@@ -31,3 +31,24 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+      with:
+        output: jn_codeql.sarif  # Especifica el nombre del archivo SARIF aquí
+
+    
+    #jn Verificar si se ha grabado el archivo SARIF
+    - name: Listar los archivos SARIF     
+      run: ls -l *.sarif            
+
+    # Upload SARIF file generated in previous step
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: jn_codeql.sarif
+      if: always()
+        
+      #jn Guarda el archivo SARIF como un artefacto para poder descargarlo del sistema de archivos de GitHub
+    - name: Carga el SARIF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: jordi-sarif
+        path: jn_codeql.sarif    
