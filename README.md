@@ -24,7 +24,7 @@
 > ([@kramse](https://twitter.com/kramse)) —
 > [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
 > ([@coderPatros' wife](https://twitter.com/coderPatros))
-#modificado jn para forzar el lanzamiento de flujos (2 veces, la 2a para probar Semgrep)
+#modificado jn para forzar el lanzamiento de flujos (2 veces, la 2a 3a para probar Dependabot)
 OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security
 trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the
 entire
